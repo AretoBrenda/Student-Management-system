@@ -1,0 +1,109 @@
+
+import java.util.Scanner;
+public class Student {
+	
+	
+	private String firstName;
+	private String lastName;
+	private int gradeYear;
+	private String studentID;
+	private String studentCourses = "";
+	private static int costofCourse = 600;
+	private int balance = 0;
+	private static int id = 1000;
+	
+	
+	//Constructor Prompt user to enter student name and year
+	public Student() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter Student first name: ");
+		firstName = scanner.nextLine();
+		System.out.print("Enter Student last name: ");
+	    lastName = scanner.nextLine();
+		System.out.print("1- for Freshmen\n2 - Sophmore\n3 - Junior\n4 - Senior\nEnter Student gradeYear: ");
+		gradeYear = scanner.nextInt();
+		
+		SetstudentID();
+		
+		System.out.println(firstName + " " + lastName + " " + gradeYear + " " + studentID);
+	}
+
+	
+	// Generate an ID
+	private void SetstudentID() {
+		//Grade leve1 + ID
+		id++;
+		studentID = gradeYear + "" + id;
+		
+	}
+	//enroll in courses
+	public void enroll() {
+		//Get inside a loop, user hits 0
+		do {
+			
+		
+		System.out.print("Enter course to enroll(Q to quit):");
+		Scanner scanner = new Scanner(System.in);
+		String Course = scanner.nextLine();
+		if(!Course.equals("Q")) {
+			studentCourses = studentCourses + "\n " + Course;
+			balance = balance + costofCourse;
+		} else {
+			
+		
+			break;
+		    }
+		} while (1 != 0);
+		
+			System.out.println("ENROLLED IN: " + studentCourses);
+			System.out.println("TUITION BALANCE: " + balance);
+		
+		
+	}
+	
+	public void viewBalance( ) {
+		System.out.println("Your balance is: $" + balance);
+	}
+	public void payTuition() {
+		viewBalance();
+		System.out.print("Enter your payment: $");
+		Scanner scanner = new Scanner(System.in);
+		int payment = scanner.nextInt();
+		balance = balance - payment;
+		System.out.println("Thank you for your payment of $" + payment);
+		viewBalance();
+		
+	}
+	
+	public String toString() {
+		return "Name: " + firstName + " " + lastName + 
+				"\nGrade Level: " + gradeYear +
+				"\nStudent ID: " + studentID +
+				"\nCourses enrolled: " + studentCourses + 
+				"\nBalance: $" + balance;
+	}
+	
+	public static void main(String[] args) {
+		
+	//Ask how many new students we need to enroll
+		
+	System.out.print("Enter number of new students to enroll: ");
+	Scanner scanner = new Scanner(System.in);
+	int numOfStudents = scanner.nextInt();
+	Student[] students = new Student[numOfStudents];
+	for(int n = 0; n < numOfStudents; n++) {
+		students[n] = new Student();
+		students[n].enroll();
+	    students[n].payTuition();
+	}
+	for(int n = 0; n < numOfStudents; n++) {
+	    System.out.println(students[n].toString());
+	
+	}
+	
+	scanner.close();
+	
+	
+	}
+	
+}
